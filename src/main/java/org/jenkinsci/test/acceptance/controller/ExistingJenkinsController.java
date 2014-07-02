@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -77,7 +78,10 @@ public class ExistingJenkinsController extends JenkinsController {
 
     @Override
     public void populateJenkinsHome(File template, boolean clean) throws IOException {
-        throw new UnsupportedOperationException("unsupported");
+        // throw new UnsupportedOperationException("unsupported");
+        // noop, log as a warning to let the user know this method is not supported for ExistingJenkinsController
+        LOGGER.warning("The populateJenkinsHome() method is not supported when using an existing"
+                + " Jenkins instance (TYPE=existing). Proceeding with the tests anyways.\n");
     }
 
     @Override
@@ -104,4 +108,6 @@ public class ExistingJenkinsController extends JenkinsController {
             return new ExistingJenkinsController(url);
         }
     }
+
+    private static final Logger LOGGER = Logger.getLogger(LocalController.class.getName());
 }
